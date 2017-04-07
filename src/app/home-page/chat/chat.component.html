@@ -1,0 +1,17 @@
+<div #scrollMe class="chat" id="messages">
+  <div *ngFor="let message of messages | async">
+    <div class="bubble" [class.you]="isYou(message.displayName)" [class.me]="!isYou(message.displayName)">
+      <p>{{ message.message }}</p>
+
+      <div class="author">
+        {{ message.displayName }} | {{ message.timestamp | date:"MM/dd/yy hh:mm a" }}
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<figure class="highlight">
+  <input type="textarea" class="message-text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()">
+  <a class="send-message" (click)="sendMessage()">SEND</a>
+</figure>

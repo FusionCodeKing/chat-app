@@ -1,0 +1,16 @@
+<div class="panel panel-default root">
+  <div class="panel-heading title">List of registered users</div>
+  <div class="panel-heading input">
+    <div class="input-group">
+      <input [(ngModel)]="search" type="text" class="form-control" id="search" placeholder="Search user">
+      <div class="input-group-addon">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body body">
+    <div class="user" *ngFor="let user of users | searchUser:search" (click)="clickOnUser(user.id)">
+      {{user.displayName}}
+    </div>
+  </div>
+</div>

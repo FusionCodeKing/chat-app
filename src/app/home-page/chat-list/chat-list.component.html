@@ -1,0 +1,21 @@
+<div class="panel panel-default root">
+  <div class="panel-heading title">List of chats</div>
+  <div class="panel-body body" [class.has-paginate]="chats && chats.length > itemsPerPage">
+
+    <div class="user" *ngFor="let chat of chats | orderBy: 'timestamp' : '0' | paginate: { itemsPerPage: itemsPerPage, currentPage: p }"
+         [class.active]="currentChat == chat.key"
+         (click)="clickOnChat(chat.key)">
+      <div class="name">{{chat.companion.lastname}} {{chat.companion.name}}</div>
+      <div class="company">{{chat.companion.company}}</div>
+      <hr>
+      <div class="message" [class.incoming]="isIncoming(chat.lastFrom)">{{chat.lastMessage}}</div>
+    </div>
+  </div>
+  <pagination-controls class="chats-pagination"
+                       *ngIf="chats && chats.length > itemsPerPage"
+                       previousLabel=""
+                       nextLabel=""
+                       maxSize="5"
+                       (pageChange)="p = $event">
+  </pagination-controls>
+</div>

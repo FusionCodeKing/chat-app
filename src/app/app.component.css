@@ -1,0 +1,19 @@
+.app {
+  position: relative;
+  height: 100vh;
+}
+.app-content {
+  position: absolute;
+  top: 52px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.border-left {
+  border-left: solid 1px;
+}
+
+.navbar {
+  margin-bottom: 0;
+}

@@ -1,0 +1,15 @@
+.content {
+  display: flex;
+  height: 100%;
+}
+.user-list {
+  flex: 0 0 auto;
+  width: 300px;
+}
+.chat-list {
+  flex: 0 0 auto;
+  width: 200px;
+}
+.chat {
+  flex: 1;
+}

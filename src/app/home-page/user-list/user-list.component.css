@@ -1,0 +1,31 @@
+.root {
+  position: relative;
+  height: 100%;
+  margin: 0;
+}
+.title {
+  font-weight: 700;
+}
+.body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 86px;
+  bottom: 0;
+  overflow-y: auto;
+}
+.input {
+  padding: 5px 0;
+}
+.user {
+  height: 25px;
+  line-height: 25px;
+  padding: 0 5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+}
+.user:hover {
+  text-decoration: underline;
+}

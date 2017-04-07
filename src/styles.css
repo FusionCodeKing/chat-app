@@ -1,0 +1,12 @@
+pagination-controls .ng2-pagination {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin: 1rem 0;
+}
+pagination-controls .ng2-pagination .current {
+  background-color: #4183F2;
+}
+pagination-controls li {
+  cursor: pointer;
+}
