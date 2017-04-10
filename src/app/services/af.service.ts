@@ -124,12 +124,12 @@ export class AF {
       displayName: this.displayName,
       timestamp: Date.now()
     };
-    this.af.database.list('messages/' + this.preferences.currentChat).push(message);
     this.af.database.object('chats/' + this.preferences.currentChat).update({
       lastMessage: text,
       lastFrom: this.user.$key,
       timestamp: Date.now()
     });
+    return this.af.database.list('messages/' + this.preferences.currentChat).push(message);
   }
 
   savePreferences(preferences) {

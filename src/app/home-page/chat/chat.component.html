@@ -1,4 +1,4 @@
-<div #scrollMe class="chat" id="messages">
+<div angular2-auto-scroll class="chat" id="messages">
   <div *ngFor="let message of messages | async">
     <div class="bubble" [class.you]="isYou(message.displayName)" [class.me]="!isYou(message.displayName)">
       <p>{{ message.message }}</p>

@@ -1,4 +1,4 @@
-import {Component, AfterViewChecked, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import { AF } from '../../services/af.service';
 import {FirebaseListObservable} from 'angularfire2';
 
@@ -7,8 +7,7 @@ import {FirebaseListObservable} from 'angularfire2';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements AfterViewChecked {
-  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+export class ChatComponent {
   public newMessage: string;
   public messages: FirebaseListObservable<any>;
   public currentChat: number;
@@ -24,19 +23,8 @@ export class ChatComponent implements AfterViewChecked {
     });
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.preverencesSubscription.unsubscribe();
-  }
-
-  ngAfterViewChecked() {
-    this.scrollToBottom();
-  }
-
-  scrollToBottom(): void {
-    try {
-      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-    } catch (err) {
-    }
   }
 
   sendMessage() {

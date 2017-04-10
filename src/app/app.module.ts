@@ -20,6 +20,7 @@ import { AuthGuard } from './services/auth-guard.service';
 import { NotAuthGuard } from './services/not-auth-guard.service';
 import { ResizeDirective } from './directives/resize.directive';
 import { environment } from '../environments/environment';
+import {Angular2AutoScroll} from "angular2-auto-scroll/lib/angular2-auto-scroll.directive";
 
 const routes:Routes = [
   {path: '', component: HomePageComponent, canActivate: [AuthGuard] },
@@ -47,7 +48,8 @@ const routes:Routes = [
     ChatComponent,
     SearchUserPipe,
     OrderByPipe,
-    ResizeDirective
+    ResizeDirective,
+    Angular2AutoScroll
   ],
   bootstrap: [AppComponent],
   providers: [AF, Utils, AuthGuard, NotAuthGuard]
