@@ -9,11 +9,16 @@
   left: 0;
   right: 0;
 }
-
 .border-left {
   border-left: solid 1px;
 }
-
 .navbar {
   margin-bottom: 0;
+}
+.brand {
+  width: 100px;
+  height: 50px;
+  padding: 0;
+  background: url("../assets/brand.png") no-repeat;
+  background-size: contain;
 }
