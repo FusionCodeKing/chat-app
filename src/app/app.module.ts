@@ -18,6 +18,7 @@ import { Utils } from './services/utils.service';
 import { Ng2PaginationModule } from 'ng2-pagination';
 import { AuthGuard } from './services/auth-guard.service';
 import { NotAuthGuard } from './services/not-auth-guard.service';
+import { ResizeDirective } from './directives/resize.directive';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyA-jirCCm4CzWUgtRoLW0y3L8ImxoCId7M',
@@ -53,7 +54,8 @@ const routes:Routes = [
     ChatListComponent,
     ChatComponent,
     SearchUserPipe,
-    OrderByPipe
+    OrderByPipe,
+    ResizeDirective
   ],
   bootstrap: [AppComponent],
   providers: [AF, Utils, AuthGuard, NotAuthGuard]

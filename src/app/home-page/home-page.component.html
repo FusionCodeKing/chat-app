@@ -1,7 +1,8 @@
 <div class="content">
-  <div class="user-list">
+  <div [style.width.px]="widthOfUserList" class="user-list">
     <user-list></user-list>
   </div>
+  <div [resize]="widthOfUserList" (changeWidth)="widthOfUserList = $event" (saveWidth)="saveWidth($event)"class="separator"></div>
   <div class="chat-list">
     <chat-list></chat-list>
   </div>

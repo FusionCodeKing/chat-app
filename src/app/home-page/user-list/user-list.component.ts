@@ -9,17 +9,17 @@ import { AF } from '../../services/af.service';
 export class UserListComponent {
   public users: any;
 
-  private userSubscription;
+  private usersSubscription;
 
   constructor(private afService: AF) {
     this.users = this.afService.users;
-    this.userSubscription = this.afService.usersChange.subscribe(snapshots => {
+    this.usersSubscription = this.afService.usersChange.subscribe(snapshots => {
       this.users = snapshots;
     });
   }
 
   ngOnDestroy() {
-    this.userSubscription.unsubscribe();
+    this.usersSubscription.unsubscribe();
   }
 
   clickOnUser(userId) {

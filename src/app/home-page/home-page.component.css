@@ -5,7 +5,7 @@
 }
 .user-list {
   flex: 0 0 auto;
-  width: 300px;
+  width: 200px;
 }
 .chat-list {
   flex: 0 0 auto;
@@ -13,4 +13,10 @@
 }
 .chat {
   flex: 1;
+}
+.separator {
+  width: 5px;
+  background: #f0f0f0 no-repeat center;
+  cursor: col-resize;
+  background-image: url('../../assets/gutter.png');
 }

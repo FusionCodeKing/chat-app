@@ -11,17 +11,21 @@ export class ChatComponent implements AfterViewChecked {
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   public newMessage: string;
   public messages: FirebaseListObservable<any>;
+  public currentChat: number;
 
-  private currentChatSubscription;
+  private preverencesSubscription;
 
   constructor(public afService: AF) {
-    this.currentChatSubscription = this.afService.currentChat.subscribe(() => {
-      this.messages = this.afService.getMessages();
+    this.preverencesSubscription = this.afService.preferencesChange.subscribe((snapshot) => {
+      if (snapshot.currentChat) {
+        this.currentChat = snapshot.currentChat;
+        this.messages = this.afService.getMessages();
+      }
     });
   }
 
   ngOnDestroy(){
-    this.currentChatSubscription.unsubscribe();
+    this.preverencesSubscription.unsubscribe();
   }
 
   ngAfterViewChecked() {
@@ -36,8 +40,10 @@ export class ChatComponent implements AfterViewChecked {
   }
 
   sendMessage() {
-    this.afService.sendMessage(this.newMessage);
-    this.newMessage = '';
+    if (this.currentChat) {
+      this.afService.sendMessage(this.newMessage);
+      this.newMessage = '';
+    }
   }
 
   isYou(displayName) {

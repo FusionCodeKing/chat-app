@@ -12,24 +12,26 @@ export class ChatListComponent {
   public itemsPerPage: number = 30;
 
   private chatsSubscription;
-  private currentChatSubscription;
+  private preferencesSubscription;
 
   constructor(public afService: AF) {
     this.chatsSubscription = this.afService.chatsChange.subscribe(snapshots => {
       this.chats = snapshots;
     });
-    this.currentChatSubscription = this.afService.currentChat.subscribe((snapshot) => {
-      this.currentChat = snapshot;
+    this.preferencesSubscription = this.afService.preferencesChange.subscribe((snapshot) => {
+      this.currentChat = snapshot.currentChat;
     });
   }
 
   ngOnDestroy() {
     this.chatsSubscription.unsubscribe();
-    this.currentChatSubscription.unsubscribe();
+    this.preferencesSubscription.unsubscribe();
   }
 
   clickOnChat(chatId) {
-    this.afService.selectChat(chatId);
+    this.afService.savePreferences({
+      currentChat: chatId
+    });
   }
 
   isIncoming(userId) {

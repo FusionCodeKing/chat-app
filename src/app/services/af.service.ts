@@ -12,12 +12,14 @@ export class AF {
   public usersChange = new Subject<any>();
   public chats: any[] = [];
   public chatsChange = new Subject<any>();
+  public preferencesChange = new Subject<any>();
+  public preferences: any = {};
   public displayName: string;
-  public currentChat = new Subject<any>();
   public user: any;
   public memberships: FirebaseListObservable<any>;
 
   private userSubscription;
+  private userPreferencesSubscription;
   private usersSubscription;
   private chatsSubscription;
 
@@ -26,6 +28,7 @@ export class AF {
       (auth) => {
         if (auth != null) {
           this.userSubscription = this.subscribeUser(auth.uid);
+          this.userPreferencesSubscription = this.subscribeUserPreferences(auth.uid)
           this.usersSubscription = this.subscribeUsers().subscribe(() => {
             if (this.chatsSubscription) {
               this.chatsSubscription.unsubscribe();
@@ -52,6 +55,7 @@ export class AF {
     this.userSubscription.unsubscribe();
     this.usersSubscription.unsubscribe();
     this.chatsSubscription.unsubscribe();
+    this.userPreferencesSubscription.unsubscribe();
     return this.af.auth.logout();
   }
 
@@ -68,6 +72,11 @@ export class AF {
       name: name,
       lastname: lastname,
       company: company,
+    }).then(() => {
+      this.af.database.object('preferences/' + uid).update({
+        width: 200,
+        currentChat: ''
+      })
     });
   }
 
@@ -90,7 +99,9 @@ export class AF {
       }
     });
     if (chatId) {
-      this.selectChat(chatId);
+      this.savePreferences({
+        currentChat: chatId
+      });
     } else {
       this.af.database.list('chats').push({
         [userId]: true,
@@ -98,16 +109,13 @@ export class AF {
         lastMessage: '',
         lastFrom: this.user.$key,
         timestamp: Date.now()
-      }).then(s => this.selectChat(s.getKey()));
+      }).then(s => this.savePreferences({
+        currentChat: s.getKey()
+      }));
     }
   }
-
-  selectChat(chatId) {
-    return this.af.database.object('users/' + this.user.$key).update({currentChat: chatId});
-  }
-
   getMessages() {
-    return this.af.database.list('messages/' + this.user.currentChat);
+    return this.af.database.list('messages/' + this.preferences.currentChat);
   }
 
   sendMessage(text) {
@@ -116,20 +124,31 @@ export class AF {
       displayName: this.displayName,
       timestamp: Date.now()
     };
-    this.af.database.list('messages/' + this.user.currentChat).push(message);
-    this.af.database.object('chats/' + this.user.currentChat).update({
+    this.af.database.list('messages/' + this.preferences.currentChat).push(message);
+    this.af.database.object('chats/' + this.preferences.currentChat).update({
       lastMessage: text,
       lastFrom: this.user.$key,
       timestamp: Date.now()
     });
   }
 
+  savePreferences(preferences) {
+    return this.af.database.object('preferences/' + this.user.$key).update(preferences);
+  }
+
   private subscribeUser(userId) {
     return this.af.database.object('users/' + userId)
       .subscribe(snapshot => {
         this.user = snapshot;
-        this.currentChat.next(snapshot.currentChat);
         this.displayName = this.utils.getDisplayName(snapshot);
+      });
+  }
+
+  private subscribeUserPreferences(userId) {
+    return this.af.database.object('preferences/' + userId, {preserveSnapshot: true})
+      .subscribe(snapshot => {
+        this.preferences = snapshot.val();
+        this.preferencesChange.next(this.preferences);
       });
   }
 
