@@ -19,7 +19,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the ` --env=prod` for a production build.
 
 ## How to deploy
-1. Write config of firebase. Open `/environments/environment.prod.ts` and complete firebase data from your firebase console.
+1. Write config of firebase. Open `/environments/environment.prod.ts` and complete firebase data from your firebase console. Don't forgot to add your domain to firebase console.
 2. Execute `ng build --env=prod`. This will create a folder called dist.
 3. Place all the files and folders from dist directory to your Apache root directory on your server.
 4. Setup apache to serve routes to index.html. You have two methods you can use, either edit your virtual host or use .htaccess in your website root directory.
