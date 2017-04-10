@@ -19,15 +19,7 @@ import { Ng2PaginationModule } from 'ng2-pagination';
 import { AuthGuard } from './services/auth-guard.service';
 import { NotAuthGuard } from './services/not-auth-guard.service';
 import { ResizeDirective } from './directives/resize.directive';
-
-export const firebaseConfig = {
-  apiKey: 'AIzaSyA-jirCCm4CzWUgtRoLW0y3L8ImxoCId7M',
-  authDomain: 'chat-5f67d.firebaseapp.com',
-  databaseURL: 'https://chat-5f67d.firebaseio.com',
-  projectId: 'chat-5f67d',
-  storageBucket: 'chat-5f67d.appspot.com',
-  messagingSenderId: '941467250243'
-};
+import { environment } from '../environments/environment';
 
 const routes:Routes = [
   {path: '', component: HomePageComponent, canActivate: [AuthGuard] },
@@ -39,7 +31,7 @@ const routes:Routes = [
 @NgModule({
   imports: [
     BrowserModule,
-    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireModule.initializeApp(environment.firebase),
     RouterModule.forRoot(routes),
     FormsModule,
     Ng2PaginationModule
