@@ -1,3 +1,8 @@
+This is chat app with one to one messaging created with Angular 2 + firebase. 
+ 
+## Demo
+demo is available on https://chat-5f67d.firebaseapp.com/ 
+
 ## Installation
 
 1. Install [nodeJs](https://nodejs.org)
